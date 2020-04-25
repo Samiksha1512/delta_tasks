@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang =" en">
+    <head>
+       <link rel="stylesheet" href="style.css">
+	  
+	   <style>
+	      	body{
+                background-color: #595958;
+				width:1000px;
+         }
+		    p{
+				color: #000033;
+				font-size:37px;
+				position:relative;
+				top:75px;
+				left:75px;
+				}
+             div{
+                
+				width:150px;
+                padding: 10px;
+				position:relative;
+                top:125px;
+				left:450px;
+         }
+	      	.counting{
+	      	    
+			    display:grid;
+				grid-template-rows: repeat(4, 5fr);
+                grid-template-columns: repeat(5, 5fr);
+                grid-gap: 10px;
+                  }
+				  
+	        .counting > button{
+			    text-align:center;
+			    color:yellow;
+			    background-color: #000080;
+			    padding:2em;
+				font-size:15px;}
+				
+		    .counting > button:nth-child(odd){
+				background-color:#000033;}
+			
+			.stopwatch{
+			    width:350px;
+			    font-size:2em;
+                position:absolute;
+				left:1000px;
+				top:50px;
+			}
+			
+			 #restartButton{
+			    width:150px;
+                position:absolute;
+				left:550px;
+				bottom:50px;
+			    
+			 }
+	   </style>
+
+    </head>
+	
+	   
+    <body>
+	
+	   <p>Click the <b>Numbers</b> as<br />quickly as you can !!</p>
+	   <div class="counting" >
+	       <button onClick="reply_click(this)">4</button>
+           <button onClick="reply_click(this)">9</button>
+		   <button onClick="reply_click(this)">3</button>
+		   <button onClick="reply_click(this)">15</button>
+		   <button onClick="reply_click(this)">6</button>
+		   <button onClick="reply_click(this)">10</button>
+		   <button onClick="reply_click(this)">17</button>
+		   <button onClick="reply_click(this)">12</button>
+		   <button onClick="reply_click(this)">2</button>
+		   <button onClick="reply_click(this)">8</button>
+	       <button onClick="reply_click(this)">14</button>
+		   <button onClick="reply_click(this)">19</button>
+		   <button onClick="reply_click(this)">16</button>
+		   <button onClick="reply_click(this)">1</button>
+		   <button onClick="reply_click(this)">20</button>
+		   <button onClick="reply_click(this)">7</button>
+		   <button onClick="reply_click(this)">13</button>
+		   <button onClick="reply_click(this)">18</button>
+	       <button onClick="reply_click(this)">5</button>
+	       <button onClick="reply_click(this)">11</button> 
+		   
+		   <button id="restartButton" onClick="gamerestart()"> <b> RESTART </b> </button> 
+	   </div>
+	   <div class="stopwatch"> 00:00:00</div>
+	   <script type="text/javascript">
+	     var  m =0;ms=0, s=0;
+         var timer;
+		 var scores = ["36:00", "39:15", "41:29", "43:34", "45:17"];
+		 var x=scores.length;
+		 localStorage.setItem("scores",JSON.stringify(scores));
+		 var storedScores = JSON.parse(localStorage.getItem("scores"));
+         var clock = document.querySelector(".stopwatch");
+		 var count =1; var correct=1;
+		 var n;
+         function start(){
+		    if(!timer){
+           timer = setInterval(run,10)};
+         };
+         function run(){
+           clock.innerHTML= (m<10? "0"+m:m)+":"+(s<10 ? "0"+s : s) + ':' +( ms<10? "0"+ms:ms);
+           ms=ms+1;
+           if(ms==100){
+             ms =0;
+             s=s+1;
+           };
+		   if(s==60){
+		     s=0;
+			 m=m+1;
+		     };
+         };
+		 function pop(){
+		   for(var i=0; i<x; i++){
+		       if(clock.innerHTML<scores[i]){
+			      scores[i]=clock.innerHTML;
+				  alert("Your score is :" + clock.innerHTML + "Best scores are :" + storedScores);
+			   }
+			   else{
+			      alert("Best score is :" + clock.innerHTML + "Best scores are : " + storedScores);
+			   }
+			 };
+		 };
+		 function pause(){
+		    clearInterval(timer);
+			timer=true;
+			pop();
+			clock.innerHTML="00:00:00";
+			
+		 };
+		function reply_click(n){
+		    start();
+		  if(n.innerHTML==correct)
+		      {
+			   if(count==40){
+                 n.innerHTML=" ";
+		         pause();
+                  }
+			  else if(count<=20)
+			  {n.innerHTML = count+20;
+			  count=count+1;}
+			  else if(count>20)
+			  {
+			  n.innerHTML=" ";
+			  count=count+1;}
+			  correct=correct+1;
+			  };
+		 
+		};
+		function gamerestart(){
+		   m =0;
+		   ms=0;
+		   s=0;
+		   count =1;
+		   correct=1;
+		   document.location.href=" ";
+		};
+		
+		
+	    
+	   </script>
+	   
+	   
+    </body>
+</html>
